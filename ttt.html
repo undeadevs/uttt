@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Ultimate Tic Tac Toe</title>
+		<style>
+		#game{
+		display: grid;
+		grid-template-columns: repeat(3, 4rem);
+		grid-template-rows: repeat(3, 4rem);
+		}
+		#game > button{
+		font-size: 2rem;
+		}
+		</style>
+	</head>
+	<body>	
+		<div id="game">
+			<button onclick="takeTurn(event.target, 0)"></button>
+			<button onclick="takeTurn(event.target, 1)"></button>
+			<button onclick="takeTurn(event.target, 2)"></button>
+			<button onclick="takeTurn(event.target, 3)"></button>
+			<button onclick="takeTurn(event.target, 4)"></button>
+			<button onclick="takeTurn(event.target, 5)"></button>
+			<button onclick="takeTurn(event.target, 6)"></button>
+			<button onclick="takeTurn(event.target, 7)"></button>
+			<button onclick="takeTurn(event.target, 8)"></button>
+		</div>
+		<script>
+		let ended = false;
+		let turn = "X";
+		const board = ["","","","","","","","",""];
+		function takeTurn(button, pos){
+			if(ended) return alert("Game has ended!");
+			if(button.textContent!=="") return alert(`There's already ${button.textContent} there`);
+			board[pos] = turn;
+			button.textContent = turn;
+			const vert = (board[pos-6] ?? "")+(board[pos-3] ?? "")+board[pos]+(board[pos+3] ?? "")+(board[pos+6] ?? "");
+			const horz = 
+				board[pos] % 3 === 0 ? 
+					board[pos]+board[pos+1]+board[pos+2] : 
+				board[pos] % 3 === 1 ? 
+					board[pos-1] + board[pos] + board[pos+1] : 
+					board[pos-2] + board[pos-1] + board[pos];
+			const diag1 = [0,4,8].includes(pos) ? board[0]+board[4]+board[8] : "";
+			const diag2 = [2,4,6].includes(pos) ? board[2]+board[4]+board[6] : "";
+			if(vert===turn.repeat(3) || horz===turn.repeat(3) || diag1===turn.repeat(3) || diag2===turn.repeat(3)){
+				ended=true;
+				setTimeout(()=>{
+					alert(`${turn} wins!`);
+					for(let i=0; i<9; ++i){
+						board[i] = "";
+						document.querySelector(`#game>button:nth-child(${i+1})`).textContent = "";
+					}
+					ended=false;
+				},0);
+				return;
+			}
+			turn = turn === "X" ? "O" : "X";
+		}
+		</script>
+	</body>
+</html>
