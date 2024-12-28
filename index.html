@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Ultimate Tic Tac Toe</title>
-        <style>
-        .game{
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ultimate Tic Tac Toe</title>
+    <style>
+        .game {
             display: grid;
             grid-template-columns: repeat(3, 12rem);
             grid-template-rows: repeat(3, 12rem);
             gap: 1rem;
         }
 
-        .sgame{
+        .sgame {
             display: grid;
             grid-template-columns: repeat(3, 4rem);
             grid-template-rows: repeat(3, 4rem);
             position: relative;
         }
 
-        .sgame > button{
+        .sgame>button {
             font-size: 2rem;
         }
 
@@ -33,7 +34,7 @@
             display: grid;
             place-content: center;
             font-size: 4rem;
-            background-color: grey;
+            background-color: rgba(0, 0, 127, 0.5);
             z-index: 10;
         }
 
@@ -47,155 +48,396 @@
             display: grid;
             place-content: center;
             font-size: 4rem;
-            background-color: grey;
+            background-color: rgba(127, 0, 0, 0.5);
             z-index: 10;
         }
-        </style>
-    </head>
-    <body>    
-        <div class="game">
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 0, 0)"></button>
-                <button onclick="takeTurn(event.target, 0, 1)"></button>
-                <button onclick="takeTurn(event.target, 0, 2)"></button>
-                <button onclick="takeTurn(event.target, 0, 3)"></button>
-                <button onclick="takeTurn(event.target, 0, 4)"></button>
-                <button onclick="takeTurn(event.target, 0, 5)"></button>
-                <button onclick="takeTurn(event.target, 0, 6)"></button>
-                <button onclick="takeTurn(event.target, 0, 7)"></button>
-                <button onclick="takeTurn(event.target, 0, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 1, 0)"></button>
-                <button onclick="takeTurn(event.target, 1, 1)"></button>
-                <button onclick="takeTurn(event.target, 1, 2)"></button>
-                <button onclick="takeTurn(event.target, 1, 3)"></button>
-                <button onclick="takeTurn(event.target, 1, 4)"></button>
-                <button onclick="takeTurn(event.target, 1, 5)"></button>
-                <button onclick="takeTurn(event.target, 1, 6)"></button>
-                <button onclick="takeTurn(event.target, 1, 7)"></button>
-                <button onclick="takeTurn(event.target, 1, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 2, 0)"></button>
-                <button onclick="takeTurn(event.target, 2, 1)"></button>
-                <button onclick="takeTurn(event.target, 2, 2)"></button>
-                <button onclick="takeTurn(event.target, 2, 3)"></button>
-                <button onclick="takeTurn(event.target, 2, 4)"></button>
-                <button onclick="takeTurn(event.target, 2, 5)"></button>
-                <button onclick="takeTurn(event.target, 2, 6)"></button>
-                <button onclick="takeTurn(event.target, 2, 7)"></button>
-                <button onclick="takeTurn(event.target, 2, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 3, 0)"></button>
-                <button onclick="takeTurn(event.target, 3, 1)"></button>
-                <button onclick="takeTurn(event.target, 3, 2)"></button>
-                <button onclick="takeTurn(event.target, 3, 3)"></button>
-                <button onclick="takeTurn(event.target, 3, 4)"></button>
-                <button onclick="takeTurn(event.target, 3, 5)"></button>
-                <button onclick="takeTurn(event.target, 3, 6)"></button>
-                <button onclick="takeTurn(event.target, 3, 7)"></button>
-                <button onclick="takeTurn(event.target, 3, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 4, 0)"></button>
-                <button onclick="takeTurn(event.target, 4, 1)"></button>
-                <button onclick="takeTurn(event.target, 4, 2)"></button>
-                <button onclick="takeTurn(event.target, 4, 3)"></button>
-                <button onclick="takeTurn(event.target, 4, 4)"></button>
-                <button onclick="takeTurn(event.target, 4, 5)"></button>
-                <button onclick="takeTurn(event.target, 4, 6)"></button>
-                <button onclick="takeTurn(event.target, 4, 7)"></button>
-                <button onclick="takeTurn(event.target, 4, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 5, 0)"></button>
-                <button onclick="takeTurn(event.target, 5, 1)"></button>
-                <button onclick="takeTurn(event.target, 5, 2)"></button>
-                <button onclick="takeTurn(event.target, 5, 3)"></button>
-                <button onclick="takeTurn(event.target, 5, 4)"></button>
-                <button onclick="takeTurn(event.target, 5, 5)"></button>
-                <button onclick="takeTurn(event.target, 5, 6)"></button>
-                <button onclick="takeTurn(event.target, 5, 7)"></button>
-                <button onclick="takeTurn(event.target, 5, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 6, 0)"></button>
-                <button onclick="takeTurn(event.target, 6, 1)"></button>
-                <button onclick="takeTurn(event.target, 6, 2)"></button>
-                <button onclick="takeTurn(event.target, 6, 3)"></button>
-                <button onclick="takeTurn(event.target, 6, 4)"></button>
-                <button onclick="takeTurn(event.target, 6, 5)"></button>
-                <button onclick="takeTurn(event.target, 6, 6)"></button>
-                <button onclick="takeTurn(event.target, 6, 7)"></button>
-                <button onclick="takeTurn(event.target, 6, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 7, 0)"></button>
-                <button onclick="takeTurn(event.target, 7, 1)"></button>
-                <button onclick="takeTurn(event.target, 7, 2)"></button>
-                <button onclick="takeTurn(event.target, 7, 3)"></button>
-                <button onclick="takeTurn(event.target, 7, 4)"></button>
-                <button onclick="takeTurn(event.target, 7, 5)"></button>
-                <button onclick="takeTurn(event.target, 7, 6)"></button>
-                <button onclick="takeTurn(event.target, 7, 7)"></button>
-                <button onclick="takeTurn(event.target, 7, 8)"></button>
-            </div>
-            <div class="sgame">
-                <button onclick="takeTurn(event.target, 8, 0)"></button>
-                <button onclick="takeTurn(event.target, 8, 1)"></button>
-                <button onclick="takeTurn(event.target, 8, 2)"></button>
-                <button onclick="takeTurn(event.target, 8, 3)"></button>
-                <button onclick="takeTurn(event.target, 8, 4)"></button>
-                <button onclick="takeTurn(event.target, 8, 5)"></button>
-                <button onclick="takeTurn(event.target, 8, 6)"></button>
-                <button onclick="takeTurn(event.target, 8, 7)"></button>
-                <button onclick="takeTurn(event.target, 8, 8)"></button>
-            </div>
-        </div>
-        <script>
-            let chosenBoard = null;
-            let turn = "X";
-            const bigBoard = new Array(9).fill(undefined).map(()=>({}));
-            const boards = new Array(9)
-                .fill(undefined)
-                .map(()=>new Array(9).fill(undefined).map(()=>({})));
-            function takeTurn(button, board, pos){
-                if(chosenBoard!==null && board!==chosenBoard) return alert("Not allowed to place here");
-                if(bigBoard[board]==="X" || bigBoard[board]==="O") return alert("Board already taken!");
-                if(boards[board][pos]==="X" || boards[board][pos]==="O") return alert("Position already taken");
-                boards[board][pos]=turn;
-                button.textContent=turn;
-                button.disabled=true;
-                const boardResult = evaluateBoard(boards[board]);
-                bigBoard[board] = boardResult ?? {};
-                if(boardResult){
-                    button.parentElement.classList.add(boardResult);
-                }
-                chosenBoard=pos;
-                if(bigBoard[chosenBoard]==="X" || bigBoard[chosenBoard]==="O"){
-                    chosenBoard=null;
-                }
-                const bigBoardResult = evaluateBoard(bigBoard);
-                if(bigBoardResult==="X" || bigBoardResult==="O"){
-                    setTimeout(()=>{
-                        alert(`${turn} wins!`);
-                    },0)
-                    return;
-                }
-                turn=turn==="X"?"O":"X";
+    </style>
+</head>
 
+<body>
+    <div class="game">
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 0, 0)"></button>
+            <button onclick="takeTurn(event.target, 0, 1)"></button>
+            <button onclick="takeTurn(event.target, 0, 2)"></button>
+            <button onclick="takeTurn(event.target, 0, 3)"></button>
+            <button onclick="takeTurn(event.target, 0, 4)"></button>
+            <button onclick="takeTurn(event.target, 0, 5)"></button>
+            <button onclick="takeTurn(event.target, 0, 6)"></button>
+            <button onclick="takeTurn(event.target, 0, 7)"></button>
+            <button onclick="takeTurn(event.target, 0, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 1, 0)"></button>
+            <button onclick="takeTurn(event.target, 1, 1)"></button>
+            <button onclick="takeTurn(event.target, 1, 2)"></button>
+            <button onclick="takeTurn(event.target, 1, 3)"></button>
+            <button onclick="takeTurn(event.target, 1, 4)"></button>
+            <button onclick="takeTurn(event.target, 1, 5)"></button>
+            <button onclick="takeTurn(event.target, 1, 6)"></button>
+            <button onclick="takeTurn(event.target, 1, 7)"></button>
+            <button onclick="takeTurn(event.target, 1, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 2, 0)"></button>
+            <button onclick="takeTurn(event.target, 2, 1)"></button>
+            <button onclick="takeTurn(event.target, 2, 2)"></button>
+            <button onclick="takeTurn(event.target, 2, 3)"></button>
+            <button onclick="takeTurn(event.target, 2, 4)"></button>
+            <button onclick="takeTurn(event.target, 2, 5)"></button>
+            <button onclick="takeTurn(event.target, 2, 6)"></button>
+            <button onclick="takeTurn(event.target, 2, 7)"></button>
+            <button onclick="takeTurn(event.target, 2, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 3, 0)"></button>
+            <button onclick="takeTurn(event.target, 3, 1)"></button>
+            <button onclick="takeTurn(event.target, 3, 2)"></button>
+            <button onclick="takeTurn(event.target, 3, 3)"></button>
+            <button onclick="takeTurn(event.target, 3, 4)"></button>
+            <button onclick="takeTurn(event.target, 3, 5)"></button>
+            <button onclick="takeTurn(event.target, 3, 6)"></button>
+            <button onclick="takeTurn(event.target, 3, 7)"></button>
+            <button onclick="takeTurn(event.target, 3, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 4, 0)"></button>
+            <button onclick="takeTurn(event.target, 4, 1)"></button>
+            <button onclick="takeTurn(event.target, 4, 2)"></button>
+            <button onclick="takeTurn(event.target, 4, 3)"></button>
+            <button onclick="takeTurn(event.target, 4, 4)"></button>
+            <button onclick="takeTurn(event.target, 4, 5)"></button>
+            <button onclick="takeTurn(event.target, 4, 6)"></button>
+            <button onclick="takeTurn(event.target, 4, 7)"></button>
+            <button onclick="takeTurn(event.target, 4, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 5, 0)"></button>
+            <button onclick="takeTurn(event.target, 5, 1)"></button>
+            <button onclick="takeTurn(event.target, 5, 2)"></button>
+            <button onclick="takeTurn(event.target, 5, 3)"></button>
+            <button onclick="takeTurn(event.target, 5, 4)"></button>
+            <button onclick="takeTurn(event.target, 5, 5)"></button>
+            <button onclick="takeTurn(event.target, 5, 6)"></button>
+            <button onclick="takeTurn(event.target, 5, 7)"></button>
+            <button onclick="takeTurn(event.target, 5, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 6, 0)"></button>
+            <button onclick="takeTurn(event.target, 6, 1)"></button>
+            <button onclick="takeTurn(event.target, 6, 2)"></button>
+            <button onclick="takeTurn(event.target, 6, 3)"></button>
+            <button onclick="takeTurn(event.target, 6, 4)"></button>
+            <button onclick="takeTurn(event.target, 6, 5)"></button>
+            <button onclick="takeTurn(event.target, 6, 6)"></button>
+            <button onclick="takeTurn(event.target, 6, 7)"></button>
+            <button onclick="takeTurn(event.target, 6, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 7, 0)"></button>
+            <button onclick="takeTurn(event.target, 7, 1)"></button>
+            <button onclick="takeTurn(event.target, 7, 2)"></button>
+            <button onclick="takeTurn(event.target, 7, 3)"></button>
+            <button onclick="takeTurn(event.target, 7, 4)"></button>
+            <button onclick="takeTurn(event.target, 7, 5)"></button>
+            <button onclick="takeTurn(event.target, 7, 6)"></button>
+            <button onclick="takeTurn(event.target, 7, 7)"></button>
+            <button onclick="takeTurn(event.target, 7, 8)"></button>
+        </div>
+        <div class="sgame">
+            <button onclick="takeTurn(event.target, 8, 0)"></button>
+            <button onclick="takeTurn(event.target, 8, 1)"></button>
+            <button onclick="takeTurn(event.target, 8, 2)"></button>
+            <button onclick="takeTurn(event.target, 8, 3)"></button>
+            <button onclick="takeTurn(event.target, 8, 4)"></button>
+            <button onclick="takeTurn(event.target, 8, 5)"></button>
+            <button onclick="takeTurn(event.target, 8, 6)"></button>
+            <button onclick="takeTurn(event.target, 8, 7)"></button>
+            <button onclick="takeTurn(event.target, 8, 8)"></button>
+        </div>
+    </div>
+    <script>
+        let p1 = "X";
+        let p2 = "O"
+        let chosenBoard = null;
+        let turn = "X";
+        const bigBoard = [
+            {}, {}, {},
+            {}, {}, {},
+            {}, {}, {},
+        ];
+        const boards = new Array(9)
+            .fill(undefined)
+            .map(() => new Array(9).fill(undefined).map(() => ({})));
+        const cache = {};
+
+        function next() {
+            console.log("CHOSEN BOARD:", chosenBoard);
+            // const [moveBoard, movePos] = findBestMove(boards, chosenBoard, turn === p1 ? p1 : p2, turn === p1 ? p2 : p1);
+            const [moveBoard, movePos] = findBestMove(boards, chosenBoard, p1, p2);
+            console.log(moveBoard, movePos);
+            const moveBtn = document.querySelector(`.sgame:nth-of-type(${moveBoard + 1}) > button:nth-of-type(${movePos + 1})`);
+            takeTurn(moveBtn, moveBoard, movePos);
+        }
+
+        function takeTurn(button, board, pos) {
+            if (evaluateBoard(bigBoard) !== null) return;
+            if (chosenBoard !== null && board !== chosenBoard) return alert("Not allowed to place here");
+            if (bigBoard[board] === "X" || bigBoard[board] === "O") return alert("Board already taken!");
+            if (boards[board][pos] === "X" || boards[board][pos] === "O") return alert("Position already taken");
+            boards[board][pos] = turn;
+            button.textContent = turn;
+            button.disabled = true;
+            const boardResult = evaluateBoard(boards[board]);
+            bigBoard[board] = boardResult ?? {};
+            if (boardResult) {
+                button.parentElement.classList.add(boardResult);
             }
-            function evaluateBoard(board){
-                const vert = new Array(3).fill(undefined)
-                    .map((_,i)=>board[i]===board[i+3] && board[i]===board[i+6] ? board[i] : null).reduce((a,b)=>a??b,null);
-                const horz = new Array(3).fill(undefined)
-                    .map((_,i)=>board[i*3]===board[i*3+1] && board[i*3]===board[i*3+2] ? board[i*3] : null).reduce((a,b)=>a??b,null);
-                const diag1 = board[0]===board[4] && board[0]===board[8] ? board[0] : null;
-                const diag2 = board[2]===board[4] && board[2]===board[6] ? board[2] : null;
-                return (vert ?? horz ?? diag1 ?? diag2);
+            chosenBoard = pos;
+            if (bigBoard[chosenBoard] === "X" || bigBoard[chosenBoard] === "O" || bigBoard[chosenBoard] === "|") {
+                chosenBoard = null;
             }
-        </script>
-    </body>
+            const bigBoardResult = evaluateBoard(bigBoard);
+            if (bigBoardResult === "X" || bigBoardResult === "O") {
+                setTimeout(() => {
+                    alert(`${turn} wins!`);
+                }, 0)
+                return;
+            } else if (bigBoardResult === "|") {
+                setTimeout(() => {
+                    alert("It's a tie!");
+                }, 0)
+                return;
+            }
+            turn = turn === "X" ? "O" : "X";
+        }
+        function evaluateBoard(board) {
+            const vert = new Array(3).fill(undefined)
+                .map((_, i) => board[i] === board[i + 3] && board[i] === board[i + 6] ? board[i] : null).reduce((a, b) => a ?? b, null);
+            const horz = new Array(3).fill(undefined)
+                .map((_, i) => board[i * 3] === board[i * 3 + 1] && board[i * 3] === board[i * 3 + 2] ? board[i * 3] : null).reduce((a, b) => a ?? b, null);
+            const diag1 = board[0] === board[4] && board[0] === board[8] ? board[0] : null;
+            const diag2 = board[2] === board[4] && board[2] === board[6] ? board[2] : null;
+            return (vert ?? horz ?? diag1 ?? diag2) ?? (board.every(cell => cell === "X" || cell === "O") ? "|" : null);
+        }
+        function evaluate(boards, p1, p2) {
+            const bigBoardResults = [];
+            for (let i = 0; i < 9; ++i) {
+                bigBoardResults[i] = evaluateBoard(boards[i]);
+            }
+            const bigBoardResult = evaluateBoard(bigBoardResults);
+            if (bigBoardResult === p1) return +10;
+            if (bigBoardResult === p2) return -10;
+            return 0;
+        }
+        function earlyEvaluateBoard(board, p1, p2) {
+            // TODO: Better evaluation
+
+            let points = 0;
+
+            for (let i = 0; i < 3; ++i) {
+                const offseth = i * 3;
+                const offsetv = (n) => n * 3 + i;
+
+                const hStr =
+                    (![p1, p2].includes(`${board[offseth + 0]}`) ? "-" : board[offseth + 0]) +
+                    (![p1, p2].includes(`${board[offseth + 1]}`) ? "-" : board[offseth + 1]) +
+                    (![p1, p2].includes(`${board[offseth + 2]}`) ? "-" : board[offseth + 2]);
+                const vStr =
+                    (![p1, p2].includes(`${board[offsetv(0)]}`) ? "-" : board[offsetv(0)]) +
+                    (![p1, p2].includes(`${board[offsetv(1)]}`) ? "-" : board[offsetv(1)]) +
+                    (![p1, p2].includes(`${board[offsetv(2)]}`) ? "-" : board[offsetv(2)]);
+
+                if (hStr === `${p1}--` || hStr === `-${p1}-` || hStr === `--${p1}`) {
+                    points += 1;
+                }
+                if (hStr === `${p2}--` || hStr === `-${p2}-` || hStr === `--${p2}`) {
+                    points -= 1;
+                }
+
+                if (vStr === `${p1}--` || vStr === `-${p1}-` || vStr === `--${p1}`) {
+                    points += 1;
+                }
+                if (vStr === `${p2}--` || vStr === `-${p2}-` || vStr === `--${p2}`) {
+                    points -= 1;
+                }
+
+                if (hStr === `${p1}${p1}-` || hStr === `-${p1}${p1}`) {
+                    points += 2;
+                }
+                if (hStr === `${p2}${p2}-` || hStr === `-${p2}${p2}`) {
+                    points -= 2;
+                }
+
+                if (vStr === `${p1}${p1}-` || vStr === `-${p1}${p1}`) {
+                    points += 2;
+                }
+                if (vStr === `${p2}${p2}-` || vStr === `-${p2}${p2}`) {
+                    points -= 2;
+                }
+
+                if (hStr === `${p1}${p1}${p1}`) {
+                    points += 10;
+                }
+                if (hStr === `${p2}${p2}${p2}`) {
+                    points -= 10;
+                }
+
+                if (vStr === `${p1}${p1}${p1}`) {
+                    points += 10;
+                }
+                if (vStr === `${p2}${p2}${p2}`) {
+                    points -= 10;
+                }
+            }
+
+            const d1Str =
+                (![p1, p2].includes(`${board[0]}`) ? "-" : board[0]) +
+                (![p1, p2].includes(`${board[4]}`) ? "-" : board[4]) +
+                (![p1, p2].includes(`${board[8]}`) ? "-" : board[8]);
+            const d2Str =
+                (![p1, p2].includes(`${board[2]}`) ? "-" : board[2]) +
+                (![p1, p2].includes(`${board[4]}`) ? "-" : board[4]) +
+                (![p1, p2].includes(`${board[6]}`) ? "-" : board[6]);
+
+            if (d1Str === `${p1}--` || d1Str === `-${p1}-` || d1Str === `--${p1}`) {
+                points += 1;
+            }
+            if (d1Str === `${p2}--` || d1Str === `-${p2}-` || d1Str === `--${p2}`) {
+                points -= 1;
+            }
+
+            if (d2Str === `${p1}--` || d2Str === `-${p1}-` || d2Str === `--${p1}`) {
+                points += 1;
+            }
+            if (d2Str === `${p2}--` || d2Str === `-${p2}-` || d2Str === `--${p2}`) {
+                points -= 1;
+            }
+
+            if (d1Str === `${p1}${p1}-` || d1Str === `-${p1}${p1}`) {
+                points += 2;
+            }
+            if (d1Str === `${p2}${p2}-` || d1Str === `-${p2}${p2}`) {
+                points -= 2;
+            }
+
+            if (d2Str === `${p1}${p1}-` || d2Str === `-${p1}${p1}`) {
+                points += 2;
+            }
+            if (d2Str === `${p2}${p2}-` || d2Str === `-${p2}${p2}`) {
+                points -= 2;
+            }
+
+            if (d1Str === `${p1}${p1}${p1}`) {
+                points += 10;
+            }
+            if (d1Str === `${p2}${p2}${p2}`) {
+                points -= 10;
+            }
+
+            if (d2Str === `${p1}${p1}${p1}`) {
+                points += 10;
+            }
+            if (d2Str === `${p2}${p2}${p2}`) {
+                points -= 10;
+            }
+
+
+            return points;
+        }
+        function minimax(boards, chosenBoard, p1, p2, depth, isMax) {
+            const origChosenBoard = chosenBoard;
+            // console.log(depth);
+            const score = evaluate(boards, p1, p2);
+
+            if (Math.abs(score) === 10) return score;
+            if (boards.every(board => board.every(cell => cell === "X" || cell === "O"))) return 0;
+
+            const cachedBest = cache[JSON.stringify(boards)]?.[chosenBoard]?.[p1]?.[p2]?.[depth]?.[isMax];
+            if (cachedBest !== undefined) return cachedBest;
+            let best = isMax ? -9_999_999 : 9_999_999;
+            if (depth > 2) {
+                best = boards.reduce((acc, board) => acc + earlyEvaluateBoard(board, p1, p2), 0);
+                cache[JSON.stringify(boards)] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1][p2] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
+                return best;
+            }
+            for (let bi = 0; bi < 9; ++bi) {
+                if (chosenBoard !== null && bi !== chosenBoard) continue;
+                if (evaluateBoard(boards[bi]) === "X" || evaluateBoard(boards[bi]) === "O") continue;
+                for (let ci = 0; ci < 9; ++ci) {
+                    if (boards[bi][ci] === "X" || boards[bi][ci] === "O") continue;
+
+                    boards[bi][ci] = isMax ? p1 : p2;
+                    chosenBoard = ci;
+                    if (boards[bi].every(cell => cell === "X" || cell === "O")) {
+                        chosenBoard = null;
+                    }
+
+                    const next = minimax(boards, chosenBoard, p1, p2, depth + 1, !isMax);
+                    best = isMax ? Math.max(best, next) : Math.min(best, next);
+                    cache[JSON.stringify(boards)] ??= {};
+                    cache[JSON.stringify(boards)][chosenBoard] ??= {};
+                    cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
+                    cache[JSON.stringify(boards)][chosenBoard][p1][p2] ??= {};
+                    cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth] ??= {};
+                    cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
+
+                    boards[bi][ci] = {};
+                    chosenBoard = origChosenBoard;
+                }
+            }
+            if (Math.abs(best) >= 9_999_999) {
+                best = boards.reduce((acc, board) => acc + earlyEvaluateBoard(board, p1, p2), 0);
+                cache[JSON.stringify(boards)] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1][p2] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth] ??= {};
+                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
+            }
+            // console.log("S", boards, chosenBoard, p1, p2, depth, isMax, best);
+
+            return best;
+        }
+        function findBestMove(boards, chosenBoard, p1, p2) {
+            const origChosenBoard = chosenBoard;
+            let bestVal = -9_999_999;
+            let bestBMove = -1;
+            let bestMove = -1;
+            for (let bi = 0; bi < 9; ++bi) {
+                if (chosenBoard !== null && bi !== chosenBoard) continue;
+                if (evaluateBoard(boards[bi]) === "X" || evaluateBoard(boards[bi]) === "O") continue;
+                for (let ci = 0; ci < 9; ++ci) {
+                    if (boards[bi][ci] === "X" || boards[bi][ci] === "O") continue;
+
+                    boards[bi][ci] = p1;
+                    chosenBoard = ci;
+                    if (boards[bi].every(cell => cell === "X" || cell === "O")) {
+                        chosenBoard = null;
+                    }
+
+                    const moveVal = minimax(boards, chosenBoard, p1, p2, 0, false);
+
+                    boards[bi][ci] = {};
+                    chosenBoard = origChosenBoard;
+
+                    console.log(bi, ci, moveVal);
+                    if (moveVal > bestVal) {
+                        bestBMove = bi;
+                        bestMove = ci;
+                        bestVal = moveVal;
+                    }
+                }
+            }
+
+            return [bestBMove, bestMove];
+        }
+    </script>
+</body>
+
 </html>
