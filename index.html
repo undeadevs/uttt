@@ -169,16 +169,15 @@
         const boards = new Array(9)
             .fill(undefined)
             .map(() => new Array(9).fill(undefined).map(() => ({})));
-        const cache = {};
 
         let turnCount = 0;
         let avg = 0;
         function next(depth = 3) {
             const start = Date.now();
-            console.log("CHOSEN BOARD:", chosenBoard);
+            // console.log("CHOSEN BOARD:", chosenBoard);
             const [moveBoard, movePos] = findBestMove(boards, chosenBoard, turn === p1 ? p1 : p2, turn == p1 ? p2 : p1, depth);
             const end = Date.now();
-            console.log(moveBoard, movePos);
+            // console.log(moveBoard, movePos);
             const moveBtn = document.querySelector(`.sgame:nth-of-type(${moveBoard + 1}) > button:nth-of-type(${movePos + 1})`);
             takeTurn(moveBtn, moveBoard, movePos);
             ++turnCount;
@@ -352,7 +351,6 @@
         }
         function minimax(boards, chosenBoard, p1, p2, depth, isMax, alpha = -9_999_999, beta = 9_999_999) {
             const origChosenBoard = chosenBoard;
-            // console.log(depth);
             const evaluations = boards.map((board) => earlyEvaluateBoard(board, p1, p2));
             const score = (() => {
                 for (let i = 0; i < 3; ++i) {
@@ -378,17 +376,9 @@
             if (Math.abs(score) >= 30) return score;
             if (boards.every(board => board.every(cell => cell === "X" || cell === "O"))) return 0;
 
-            const cachedBest = cache[JSON.stringify(boards)]?.[chosenBoard]?.[p1]?.[p2]?.[depth]?.[isMax];
-            if (cachedBest !== undefined) return cachedBest;
             let best = isMax ? -9_999_999 : 9_999_999;
             if (depth <= 0) {
                 best = evaluations.reduce((acc, evaluation) => acc + evaluation, 0);
-                cache[JSON.stringify(boards)] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1][p2] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
                 return best;
             }
             const tempBest = evaluations.reduce((acc, evaluation) => acc + evaluation, 0);
@@ -406,12 +396,6 @@
 
                     const next = minimax(boards, chosenBoard, p1, p2, depth - 1, !isMax);
                     best = isMax ? Math.max(best, next) : Math.min(best, next);
-                    cache[JSON.stringify(boards)] ??= {};
-                    cache[JSON.stringify(boards)][chosenBoard] ??= {};
-                    cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
-                    cache[JSON.stringify(boards)][chosenBoard][p1][p2] ??= {};
-                    cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth] ??= {};
-                    cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
                     if (isMax) {
                         alpha = Math.max(alpha, best);
                     } else {
@@ -428,14 +412,7 @@
             }
             if (Math.abs(best) >= 9_999_999) {
                 best = evaluations.reduce((acc, evaluation) => acc + evaluation, 0);
-                cache[JSON.stringify(boards)] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1][p2] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth] ??= {};
-                cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
             }
-            // console.log("S", boards, chosenBoard, p1, p2, depth, isMax, best);
 
             return best;
         }
@@ -464,7 +441,7 @@
                     boards[bi][ci] = {};
                     chosenBoard = origChosenBoard;
 
-                    console.log(bi, ci, moveVal);
+                    // console.log(bi, ci, moveVal);
                     if (moveVal > bestVal) {
                         bestBMove = bi;
                         bestMove = ci;
