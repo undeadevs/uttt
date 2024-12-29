@@ -345,19 +345,39 @@
 
             return points;
         }
-        function minimax(boards, chosenBoard, p1, p2, depth, isMax) {
+        function minimax(boards, chosenBoard, p1, p2, depth, isMax, alpha = -9_999_999, beta = 9_999_999) {
             const origChosenBoard = chosenBoard;
             // console.log(depth);
-            const score = evaluate(boards, p1, p2);
+            const evaluations = boards.map((board) => earlyEvaluateBoard(board, p1, p2));
+            const score = (() => {
+                for (let i = 0; i < 3; ++i) {
+                    const offseth = (n) => i * 3 + n;
+                    const offsetv = (n) => n * 3 + i;
 
-            if (Math.abs(score) === 10) return score;
+                    if (Math.abs(evaluations[offseth(0)]) >= 10 && Math.abs(evaluations[offseth(1)]) >= 10 && Math.abs(evaluations[offseth(2)]) >= 10) {
+                        return evaluations[offseth(0)] + evaluations[offseth(1)] + evaluations[offseth(2)];
+                    }
+                    if (Math.abs(evaluations[offsetv(0)]) >= 10 && Math.abs(evaluations[offsetv(1)]) >= 10 && Math.abs(evaluations[offsetv(2)]) >= 10) {
+                        return evaluations[offsetv(0)] + evaluations[offsetv(1)] + evaluations[offsetv(2)];
+                    }
+                }
+
+                if (Math.abs(evaluations[0]) >= 10 && Math.abs(evaluations[4]) >= 10 && Math.abs(evaluations[8]) >= 10) {
+                    return evaluations[0] + evaluations[4] + evaluations[8];
+                }
+                if (Math.abs(evaluations[2]) >= 10 && Math.abs(evaluations[4]) >= 10 && Math.abs(evaluations[6]) >= 10) {
+                    return evaluations[0] + evaluations[4] + evaluations[6];
+                }
+            })();
+
+            if (Math.abs(score) >= 30) return score;
             if (boards.every(board => board.every(cell => cell === "X" || cell === "O"))) return 0;
 
             const cachedBest = cache[JSON.stringify(boards)]?.[chosenBoard]?.[p1]?.[p2]?.[depth]?.[isMax];
             if (cachedBest !== undefined) return cachedBest;
             let best = isMax ? -9_999_999 : 9_999_999;
-            if (depth > 2) {
-                best = boards.reduce((acc, board) => acc + earlyEvaluateBoard(board, p1, p2), 0);
+            if (depth === 4) {
+                best = evaluations.reduce((acc, evaluation) => acc + evaluation, 0);
                 cache[JSON.stringify(boards)] ??= {};
                 cache[JSON.stringify(boards)][chosenBoard] ??= {};
                 cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
@@ -366,6 +386,7 @@
                 cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
                 return best;
             }
+            const tempBest = evaluations.reduce((acc, evaluation) => acc + evaluation, 0);
             for (let bi = 0; bi < 9; ++bi) {
                 if (chosenBoard !== null && bi !== chosenBoard) continue;
                 if (evaluateBoard(boards[bi]) === "X" || evaluateBoard(boards[bi]) === "O") continue;
@@ -386,13 +407,22 @@
                     cache[JSON.stringify(boards)][chosenBoard][p1][p2] ??= {};
                     cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth] ??= {};
                     cache[JSON.stringify(boards)][chosenBoard][p1][p2][depth][isMax] = best;
+                    if (isMax) {
+                        alpha = Math.max(alpha, best);
+                    } else {
+                        beta = Math.min(beta, best);
+                    }
 
                     boards[bi][ci] = {};
                     chosenBoard = origChosenBoard;
+
+                    if (beta <= alpha) {
+                        break;
+                    }
                 }
             }
             if (Math.abs(best) >= 9_999_999) {
-                best = boards.reduce((acc, board) => acc + earlyEvaluateBoard(board, p1, p2), 0);
+                best = evaluations.reduce((acc, evaluation) => acc + evaluation, 0);
                 cache[JSON.stringify(boards)] ??= {};
                 cache[JSON.stringify(boards)][chosenBoard] ??= {};
                 cache[JSON.stringify(boards)][chosenBoard][p1] ??= {};
